@@ -37,7 +37,7 @@
   </template>
   
   <script setup lang="ts">
-  import { CashOutline as CashIcon } from '@vicons/ionicons5'
+  // import { CashOutline as CashIcon } from '@vicons/ionicons5'
   
   </script>
   
