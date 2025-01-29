@@ -111,7 +111,7 @@ export default defineComponent({
     const handleMenuSelect = (key: string) => {
       showCollapsedMenu.value = false;
       const routeMap: Record<string, string> = {
-        home: '/',
+        home: '/No_to_see',
         login: '/login',
         introduction: '/introduction',
         projects: '/projects',

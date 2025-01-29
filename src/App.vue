@@ -4,7 +4,7 @@
     <router-view></router-view> <!-- 主内容 -->
 
   <div class="app">
-    <!-- <Home></Home> -->
+    
   
 </div>
 
@@ -24,7 +24,7 @@ export default {
   name: 'App',
   components: {
     no_to_see,
-    // Home
+    
     Login,
     Home
   }
