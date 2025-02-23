@@ -23,7 +23,7 @@
         >
           <n-button class="collapse-button">
             <template #icon>
-              <n-icon><MenuOutline /></n-icon>
+              <MenuOutline />更多
             </template>
           </n-button>
         </n-dropdown>
@@ -54,6 +54,7 @@
       <n-layout class="content-layout">
         <n-layout-scroll-container class="scroll-container">
           <div class="content-area">
+            
             <!-- 你的页面内容 -->
             <router-view />
           </div>
@@ -159,6 +160,7 @@ export default defineComponent({
       collapsed,
       handleMenuSelect,
       MenuOutline,
+      
     };
   },
 });
