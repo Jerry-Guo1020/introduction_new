@@ -1,36 +1,66 @@
 <template>
-  <div class="nav-wrapper">
-    <!-- 左侧标题 -->
-    <h1 class="site-title">郭嘉荣个人工作室</h1>
+  <n-space vertical class="main-container">
+    <div class="nav-wrapper">
+      <h1 class="site-title">haha</h1>
+      <div class="menu-container">
+        <!-- 桌面端菜单 -->
+        <n-menu
+          v-if="!isMobileView"
+          v-model:value="activeKey"
+          mode="horizontal"
+          :options="menuOptions"
+          responsive
+          @update:value="handleMenuSelect"
+        />
 
-    <!-- 右侧菜单区域 -->
-   
-      <!-- 桌面端菜单 -->
-      <n-menu
-        v-if="!isMobileView"
-        v-model:value="activeKey"
-        mode="horizontal"
-        :options="menuOptions"
-        responsive
-        @update:value="handleMenuSelect"
-      />
-
-      <!-- 移动端折叠按钮 -->
-      <n-dropdown
-        v-if="isMobileView"
-        v-model:show="showCollapsedMenu"
-        :options="menuOptions"
-        placement="bottom-end"
-        @select="handleMenuSelect"
-      >
-        <n-button class="collapse-button">
-          <template #icon>
-            <n-icon><MenuOutline /></n-icon>
-          </template>
-        </n-button>
-      </n-dropdown>
+        <!-- 移动端折叠按钮 -->
+        <n-dropdown
+          v-else
+          v-model:show="showCollapsedMenu"
+          :options="menuOptions"
+          placement="bottom-end"
+          @select="handleMenuSelect"
+        >
+          <n-button class="collapse-button">
+            <template #icon>
+              <n-icon><MenuOutline /></n-icon>
+            </template>
+          </n-button>
+        </n-dropdown>
+      </div>
     </div>
-  
+
+    <n-layout has-sider class="layout-container">
+      <n-layout-sider
+        v-if="!isMobileView"
+        bordered
+        collapse-mode="width"
+        :collapsed-width="64"
+        :width="240"
+        :collapsed="collapsed"
+        show-trigger
+        @collapse="collapsed = true"
+        @expand="collapsed = false"
+      >
+        <n-menu
+          v-model:value="activeKey"
+          :collapsed="collapsed"
+          :collapsed-width="64"
+          :collapsed-icon-size="22"
+          :options="menuOptions"
+        />
+      </n-layout-sider>
+
+      <n-layout class="content-layout">
+        <n-layout-scroll-container class="scroll-container">
+          <div class="content-area">
+            <!-- 你的页面内容 -->
+            <router-view />
+          </div>
+        </n-layout-scroll-container>
+      </n-layout>
+    </n-layout>
+  </n-space>
 </template>
 
 <script lang="ts">
@@ -38,9 +68,8 @@ import { defineComponent, ref, onMounted, onUnmounted, h } from 'vue';
 import { useRouter } from 'vue-router';
 import { NIcon, NMenu, NButton, NDropdown } from 'naive-ui';
 import { MenuOutline, BookOutline as BookIcon, PersonOutline as PersonIcon } from '@vicons/ionicons5';
-import type { Component } from 'vue'; // 导入 Component 类型
+import type { Component } from 'vue';
 
-// 渲染菜单图标
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
@@ -57,8 +86,8 @@ export default defineComponent({
     const activeKey = ref<string | null>(null);
     const isMobileView = ref(false);
     const showCollapsedMenu = ref(false);
+    const collapsed = ref(false);
 
-    // 菜单配置项
     const menuOptions = [
       {
         label: '首页',
@@ -75,14 +104,8 @@ export default defineComponent({
         key: 'projects',
         icon: renderIcon(BookIcon),
         children: [
-          {
-            label: '项目 1',
-            key: 'project-1',
-          },
-          {
-            label: '项目 2',
-            key: 'project-2',
-          },
+          { label: '项目 1', key: 'project-1' },
+          { label: '项目 2', key: 'project-2' }
         ],
       },
       {
@@ -102,12 +125,10 @@ export default defineComponent({
       },
     ];
 
-    // 响应式布局检测
     const checkMobileView = () => {
-      isMobileView.value = window.innerWidth < 300;
+      isMobileView.value = window.innerWidth < 640;
     };
 
-    // 菜单选择处理
     const handleMenuSelect = (key: string) => {
       showCollapsedMenu.value = false;
       const routeMap: Record<string, string> = {
@@ -118,12 +139,9 @@ export default defineComponent({
         awards: '/awards',
         acacia: '/acacia',
       };
-      if (routeMap[key]) {
-        router.push(routeMap[key]);
-      }
+      router.push(routeMap[key] || '/');
     };
 
-    // 生命周期钩子
     onMounted(() => {
       checkMobileView();
       window.addEventListener('resize', checkMobileView);
@@ -138,6 +156,7 @@ export default defineComponent({
       menuOptions,
       isMobileView,
       showCollapsedMenu,
+      collapsed,
       handleMenuSelect,
       MenuOutline,
     };
@@ -146,51 +165,67 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.main-container {
+  height: 100vh;
+}
+
 .nav-wrapper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 16px; /* 减少 padding 以适应小屏幕 */
-  height: 60px; /* 减少高度以适应小屏幕 */
+  align-items: center;
+  padding: 0 24px;
+  height: 64px;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .site-title {
-  font-size: 20px; /* 减小字体大小以适应小屏幕 */
+  font-size: 24px;
   font-family: '华文新魏', sans-serif;
   background: linear-gradient(to right, #ff7e5f, #feb47b);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  white-space: nowrap;
   margin: 0;
-  padding-right: 10px; /* 减少 padding 以适应小屏幕 */
 }
 
-.menu-container {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* 减少间隙以适应小屏幕 */
+.layout-container {
+  height: calc(100vh - 64px);
 }
 
-.collapse-button {
-  margin-left: auto;
+.content-layout {
+  height: 100%;
 }
 
-@media (max-width: 430px) {
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.content-area {
+  padding: 24px;
+  min-height: 100%;
+}
+
+@media (max-width: 640px) {
   .nav-wrapper {
-    padding: 0 8px; /* 进一步减少 padding */
+    padding: 0 12px;
+    height: 56px;
   }
-
+  
   .site-title {
-    font-size: 18px; /* 进一步减小字体大小 */
-    padding-right: 5px; /* 进一步减少 padding */
+    font-size: 20px;
   }
 
-  .menu-container {
-    gap: 4px; /* 进一步减少间隙 */
+  .layout-container {
+    height: calc(100vh - 56px);
+  }
+  
+  .content-area {
+    padding: 16px;
   }
 }
 </style>

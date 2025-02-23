@@ -1,7 +1,11 @@
+
 // router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../components/Login.vue';
 import No_to_see from '../components/no_to_see.vue';
+import Home from '../components/Home.vue';
+
+// import Introduce from '../components/Introduce.vue';
 
 const routes = [
     {
@@ -15,6 +19,18 @@ const routes = [
     name: 'No_to_see',
     component: No_to_see
   },
+  {
+    path: '/Home',
+    name: 'Home',
+    component: Home
+  },
+  // {
+  //   path:'introduce',
+  //   name:'introduce',
+  //   component: Introduce
+  // },
+
+ 
 ]
 
 const router = createRouter({

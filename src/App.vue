@@ -1,30 +1,22 @@
 <template>
   <n-message-provider>
-    <Home></Home>
+    <div class="app">
+      <Home></Home>
+      
+    </div>
     <router-view></router-view> <!-- 主内容 -->
-
-  <div class="app">
-    
-  
-</div>
-
-</n-message-provider>
-
+  </n-message-provider>
 </template>
 
 <script lang="ts">
-
-
 import Home from './components/Home.vue';
-import no_to_see from './components/no_to_see.vue';
+import NoToSee from './components/no_to_see.vue';
 import Login from './components/Login.vue';
-
 
 export default {
   name: 'App',
   components: {
-    no_to_see,
-    
+    NoToSee,
     Login,
     Home
   }
@@ -32,5 +24,8 @@ export default {
 </script>
 
 <style>
-
+.app {
+  display: flex; /* 确保组件在同一行显示 */
+  flex-direction: column; /* 或者使用 row 以并排显示 */
+}
 </style>
