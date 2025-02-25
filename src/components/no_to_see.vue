@@ -10,30 +10,7 @@
   
   
   <!-- 这个是一个展示小东西的一个的插件 -->
-  <!-- <n-flex>
-      <n-float-button position="relative" type="primary" menu-trigger="hover">
-        <n-icon>
-          <CashIcon />
-        </n-icon>
-        <template #menu>
-          <n-float-button shape="square" type="primary">
-            <n-icon>
-              <CashIcon />
-            </n-icon>
-          </n-float-button>
-          <n-float-button>
-            <n-icon>
-              <CashIcon />
-            </n-icon>
-          </n-float-button>
-          <n-float-button>
-            <n-icon>
-              <CashIcon />
-            </n-icon>
-          </n-float-button>
-        </template>
-      </n-float-button>
-  </n-flex> -->
+
   </template>
   
   <script setup lang="ts">
@@ -43,10 +20,10 @@
   
   <style scoped>
   .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-position: center;
   }
   </style>

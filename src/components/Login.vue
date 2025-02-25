@@ -1,7 +1,7 @@
 <template>
    
     <n-card title="Too Simple">
-      <n-tabs default-value="signin" size="large" justify-content="space-evenly">
+      <n-tabs default-value="signin"  justify-content="center">
         <n-tab-pane name="signin" tab="登录">
           <n-form>
             <n-form-item-row label="用户名">
@@ -35,6 +35,4 @@
     </n-card>
   </template>
 
-  <style lang="css">
-  
-</style>
+ 

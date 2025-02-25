@@ -4,7 +4,7 @@
       <Home></Home>
       
     </div>
-    <router-view></router-view> <!-- 主内容 -->
+    
   </n-message-provider>
 </template>
 
@@ -12,13 +12,15 @@
 import Home from './components/Home.vue';
 import NoToSee from './components/no_to_see.vue';
 import Login from './components/Login.vue';
+import Introduction from './components/Introduction.vue';
 
 export default {
   name: 'App',
   components: {
     NoToSee,
     Login,
-    Home
+    Home,
+    Introduction,
   }
 }
 </script>

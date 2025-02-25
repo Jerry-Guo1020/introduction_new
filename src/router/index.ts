@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../components/Login.vue';
 import No_to_see from '../components/no_to_see.vue';
 import Home from '../components/Home.vue';
+import Introduction from '../components/Introduction.vue';
 
 // import Introduce from '../components/Introduce.vue';
 
@@ -24,11 +25,11 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  // {
-  //   path:'introduce',
-  //   name:'introduce',
-  //   component: Introduce
-  // },
+  {
+    path:'/introduce',
+    name:'introduce',
+    component: Introduction
+  },
 
  
 ]

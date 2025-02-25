@@ -1,4 +1,6 @@
 <template>
+  <n-config-provider :theme="theme">
+    <n-global-style />
   <n-space vertical class="main-container">
     <div class="nav-wrapper">
       <h1 class="site-title">haha</h1>
@@ -27,7 +29,20 @@
             </template>
           </n-button>
         </n-dropdown>
+        
       </div>
+      
+    
+      <n-space>
+        <n-button @click="theme = darkTheme">
+          深色
+        </n-button>
+        <n-button @click="theme = null">
+          浅色
+        </n-button>
+      </n-space>
+    
+  
     </div>
 
     <n-layout has-sider class="layout-container">
@@ -48,28 +63,31 @@
           :collapsed-width="64"
           :collapsed-icon-size="22"
           :options="menuOptions"
+          @update:value="handleMenuSelect"
         />
+      
       </n-layout-sider>
 
       <n-layout class="content-layout">
-        <n-layout-scroll-container class="scroll-container">
-          <div class="content-area">
-            
+      
+        
             <!-- 你的页面内容 -->
             <router-view />
-          </div>
-        </n-layout-scroll-container>
+         
       </n-layout>
     </n-layout>
   </n-space>
+</n-config-provider>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted, h } from 'vue';
 import { useRouter } from 'vue-router';
-import { NIcon, NMenu, NButton, NDropdown } from 'naive-ui';
-import { MenuOutline, BookOutline as BookIcon, PersonOutline as PersonIcon } from '@vicons/ionicons5';
+import { NIcon, NMenu, NButton, NDropdown, darkTheme } from 'naive-ui';
+import { MenuOutline, BookOutline as BookIcon, PersonOutline as PersonIcon,BusinessOutline ,HomeOutline,BulbOutline} from '@vicons/ionicons5';
 import type { Component } from 'vue';
+import type { GlobalTheme } from 'naive-ui';
+
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
@@ -81,6 +99,9 @@ export default defineComponent({
     NMenu,
     NButton,
     NDropdown,
+    
+  
+   
   },
   setup() {
     const router = useRouter();
@@ -93,17 +114,17 @@ export default defineComponent({
       {
         label: '首页',
         key: 'home',
-        icon: renderIcon(BookIcon),
+        icon: renderIcon(HomeOutline),
       },
       {
         label: '个人介绍',
-        key: 'introduction',
+        key: 'introduce',
         icon: renderIcon(PersonIcon),
       },
       {
         label: '优秀项目',
         key: 'projects',
-        icon: renderIcon(BookIcon),
+        icon: renderIcon(BulbOutline),
         children: [
           { label: '项目 1', key: 'project-1' },
           { label: '项目 2', key: 'project-2' }
@@ -115,15 +136,17 @@ export default defineComponent({
         icon: renderIcon(BookIcon),
       },
       {
-        label: '金合欢科技',
+        label: 'Jerry的工作室',
         key: 'acacia',
-        icon: renderIcon(BookIcon),
+        icon:renderIcon(BusinessOutline) ,
       },
       {
         label: '登录',
         key: 'login',
         icon: renderIcon(PersonIcon),
       },
+
+  
     ];
 
     const checkMobileView = () => {
@@ -135,7 +158,7 @@ export default defineComponent({
       const routeMap: Record<string, string> = {
         home: '/No_to_see',
         login: '/login',
-        introduction: '/introduction',
+        introduce: '/introduce',
         projects: '/projects',
         awards: '/awards',
         acacia: '/acacia',
@@ -160,7 +183,8 @@ export default defineComponent({
       collapsed,
       handleMenuSelect,
       MenuOutline,
-      
+      darkTheme,
+      theme: ref<GlobalTheme | null>(null)
     };
   },
 });
@@ -177,7 +201,7 @@ export default defineComponent({
   align-items: center;
   padding: 0 24px;
   height: 64px;
-  background: white;
+  
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -199,12 +223,13 @@ export default defineComponent({
 }
 
 .content-layout {
-  height: 100%;
+  min-height: 100%;
+  
 }
 
 .scroll-container {
   height: 100%;
-  overflow-y: auto;
+  
 }
 
 .content-area {
@@ -230,4 +255,5 @@ export default defineComponent({
     padding: 16px;
   }
 }
+
 </style>
