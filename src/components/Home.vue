@@ -3,7 +3,7 @@
     <n-global-style />
   <n-space vertical class="main-container">
     <div class="nav-wrapper">
-      <h1 class="site-title">haha</h1>
+      <h1 class="site-title">哈哈嘻嘻呵呵</h1>
       <div class="menu-container">
         <!-- 桌面端菜单 -->
         <n-menu
